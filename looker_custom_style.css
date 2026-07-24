@@ -1,6 +1,7 @@
-/* Looker Report Table - CSS Completo v5 */
+/* Looker Report Table - CSS Completo v2 */
 
-/* --- 1. ESTILOS GERAIS DA TABELA --- */
+/* --- 1. ESTILOS GERAIS DA TABELA (Restaurando a legibilidade) --- */
+/* Garante que a tabela ocupe o espaço correto e as bordas se unam perfeitamente */
 table {
     border-collapse: collapse !important;
     width: 100% !important;
@@ -8,68 +9,62 @@ table {
     color: #333333 !important;
 }
 
+/* Espaçamento e bordas padrão para todas as células (linhas finas entre os produtos) */
 th, td {
     padding: 8px 10px !important;
     border: 1px solid #e0e0e0 !important; 
+    vertical-align: middle !important;
     font-size: 12px !important;
 }
 
-/* Alinhamento no topo para dimensões */
+/* Alinhar números à direita (geralmente as últimas colunas de métricas) */
+td:nth-last-child(1), td:nth-last-child(2), td:nth-last-child(3),
+th:nth-last-child(1), th:nth-last-child(2), th:nth-last-child(3) {
+    text-align: right !important;
+}
+
+/* Alinhar textos à esquerda nas primeiras colunas (Dimensões) */
 td:first-child, td:nth-child(2), td:nth-child(3),
 th:first-child, th:nth-child(2), th:nth-child(3) {
-    vertical-align: top !important;
+    text-align: left !important;
 }
 
-/* --- 2. ALINHAMENTO DE NÚMEROS (CORREÇÃO) --- */
-/* Como a tabela usa 'colspan' (mescla células) nos totais, o seletor antigo se perdia. */
-/* Agora miramos diretamente nas classes de métricas do plugin. */
-td[class*='measure'], th[class*='measure'],
-td[class*='numeric'], th[class*='numeric'],
-.rt-measure, .rt-measure-cell, .rt-numeric {
-    text-align: right !important;
-    vertical-align: middle !important;
-}
-
-/* Força o alinhamento caso a Report Table esteja usando flexbox internamente */
-td[class*='measure'] > div, td[class*='numeric'] > div,
-.rt-measure > div, .rt-measure-cell > div {
-    justify-content: flex-end !important;
-    text-align: right !important;
-    width: 100% !important;
-}
-
-/* --- 3. CABEÇALHO --- */
+/* --- 2. CABEÇALHO --- */
+/* Fundo preto, letra branca conforme solicitado */
 thead th, .rt-header-row th, .report-table-header, tr[class*='header'] th {
     background-color: #000000 !important;
     color: #ffffff !important;
     font-weight: bold !important;
     border: 1px solid #333333 !important;
-    vertical-align: middle !important;
 }
 
-/* --- 4. SUBTOTAIS E TOTAIS (CORREÇÃO) --- */
-/* Ampliando a busca por classes de total agrupado para capturar a linha de Brunch All Day */
-tr.subtotal td, .rt-subtotal-row td, .report-table-subtotal, 
-tr[class*='subtotal'] td, tr[class*='Subtotal'] td,
-tr.total td, .rt-total-row td, .report-table-total, 
-tr[class*='total'] td, tr[class*='Total'] td,
-tr.rt-group-total td, tr.group-total td, tr[class*='group-total'] td {
-    background-color: #cccccc !important;
-    color: #333333 !important;
+/* --- 3. SUBTOTAIS (Master Category / Category) --- */
+/* Restaurando o fundo cinza padrão do Looker + Linha mais grossa pedida */
+tr.subtotal td, .rt-subtotal-row td, .report-table-subtotal, tr[class*='subtotal'] td, tr[class*='Subtotal'] td {
+    background-color: #f0f0f0 !important; /* Fundo cinza para destacar o grupo */
+    color: #000000 !important;
     font-weight: bold !important;
-    font-style: italic !important;
-    border-top: 1px solid #a6a6a6 !important;
-    border-bottom: 3px solid #595959 !important;
-    vertical-align: middle !important;
+    border-top: 2px solid #000000 !important; /* Linha grossa acima do subtotal */
+    border-bottom: 2px solid #000000 !important; /* Linha grossa abaixo do subtotal */
 }
 
-/* --- 5. EFEITOS EXTRAS --- */
+/* --- 4. TOTAIS GERAIS (Grand Total) --- */
+/* Destaque maior e "quebra" visual pós-totais */
+tr.total td, .rt-total-row td, .report-table-total, tr[class*='total'] td, tr[class*='Total'] td {
+    background-color: #e0e0e0 !important;
+    color: #000000 !important;
+    font-weight: bold !important;
+    border-top: 3px double #000000 !important;
+    border-bottom: 4px solid #000000 !important;
+    font-size: 13px !important;
+}
+
+/* --- 5. EFEITOS EXTRAS (Opcional, mas melhora a leitura) --- */
+/* Destacar a linha sutilmente ao passar o mouse */
 tbody tr:hover td {
     background-color: #f9f9f9 !important;
 }
 
-tbody tr[class*='subtotal']:hover td, tbody tr.subtotal:hover td,
-tbody tr[class*='total']:hover td, tbody tr.total:hover td,
-tbody tr[class*='group-total']:hover td { 
-    background-color: #bfbfbf !important; 
-}
+/* Evitar que o hover sobrescreva o fundo cinza dos subtotais/totais */
+tbody tr[class*='subtotal']:hover td, tbody tr.subtotal:hover td { background-color: #f0f0f0 !important; }
+tbody tr[class*='total']:hover td, tbody tr.total:hover td { background-color: #e0e0e0 !important; }
