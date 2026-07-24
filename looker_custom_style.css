@@ -1,0 +1,17 @@
+/* Custom CSS for Looker Report Table */
+
+/* 1. Cabeçalho preto com letra branca */
+th, .rt-header-row th, .rt-header-cell, .report-table-header {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+}
+
+/* 2. Linha mais grossa entre subcategorias (subtotais) */
+.rt-subtotal-row td, tr.subtotal td, .report-table-subtotal {
+    border-bottom: 2px solid #000000 !important; 
+}
+
+/* 3. Destaque / Quebra de linha pós-totais */
+.rt-total-row td, tr.total td, .report-table-total {
+    border-bottom: 4px double #000000 !important;
+}
