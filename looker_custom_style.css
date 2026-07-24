@@ -1,4 +1,4 @@
-/* Looker Report Table - CSS Completo v4 */
+/* Looker Report Table - CSS Completo v5 */
 
 /* --- 1. ESTILOS GERAIS DA TABELA --- */
 table {
@@ -8,33 +8,37 @@ table {
     color: #333333 !important;
 }
 
-/* Espaçamento e bordas padrão para todas as células */
 th, td {
     padding: 8px 10px !important;
     border: 1px solid #e0e0e0 !important; 
     font-size: 12px !important;
 }
 
-/* Alinhamento vertical corrigido para o TOPO nas dimensões */
+/* Alinhamento no topo para dimensões */
 td:first-child, td:nth-child(2), td:nth-child(3),
 th:first-child, th:nth-child(2), th:nth-child(3) {
     vertical-align: top !important;
 }
 
-/* Alinhar números à direita (últimas colunas de métricas) e centralizar verticalmente as métricas */
-td:nth-last-child(1), td:nth-last-child(2), td:nth-last-child(3),
-th:nth-last-child(1), th:nth-last-child(2), th:nth-last-child(3) {
+/* --- 2. ALINHAMENTO DE NÚMEROS (CORREÇÃO) --- */
+/* Como a tabela usa 'colspan' (mescla células) nos totais, o seletor antigo se perdia. */
+/* Agora miramos diretamente nas classes de métricas do plugin. */
+td[class*='measure'], th[class*='measure'],
+td[class*='numeric'], th[class*='numeric'],
+.rt-measure, .rt-measure-cell, .rt-numeric {
     text-align: right !important;
     vertical-align: middle !important;
 }
 
-/* Alinhar textos à esquerda nas primeiras colunas (Dimensões) */
-td:first-child, td:nth-child(2), td:nth-child(3),
-th:first-child, th:nth-child(2), th:nth-child(3) {
-    text-align: left !important;
+/* Força o alinhamento caso a Report Table esteja usando flexbox internamente */
+td[class*='measure'] > div, td[class*='numeric'] > div,
+.rt-measure > div, .rt-measure-cell > div {
+    justify-content: flex-end !important;
+    text-align: right !important;
+    width: 100% !important;
 }
 
-/* --- 2. CABEÇALHO --- */
+/* --- 3. CABEÇALHO --- */
 thead th, .rt-header-row th, .report-table-header, tr[class*='header'] th {
     background-color: #000000 !important;
     color: #ffffff !important;
@@ -43,9 +47,13 @@ thead th, .rt-header-row th, .report-table-header, tr[class*='header'] th {
     vertical-align: middle !important;
 }
 
-/* --- 3. SUBTOTAIS E TOTAIS --- */
-tr.subtotal td, .rt-subtotal-row td, .report-table-subtotal, tr[class*='subtotal'] td, tr[class*='Subtotal'] td,
-tr.total td, .rt-total-row td, .report-table-total, tr[class*='total'] td, tr[class*='Total'] td {
+/* --- 4. SUBTOTAIS E TOTAIS (CORREÇÃO) --- */
+/* Ampliando a busca por classes de total agrupado para capturar a linha de Brunch All Day */
+tr.subtotal td, .rt-subtotal-row td, .report-table-subtotal, 
+tr[class*='subtotal'] td, tr[class*='Subtotal'] td,
+tr.total td, .rt-total-row td, .report-table-total, 
+tr[class*='total'] td, tr[class*='Total'] td,
+tr.rt-group-total td, tr.group-total td, tr[class*='group-total'] td {
     background-color: #cccccc !important;
     color: #333333 !important;
     font-weight: bold !important;
@@ -55,12 +63,13 @@ tr.total td, .rt-total-row td, .report-table-total, tr[class*='total'] td, tr[cl
     vertical-align: middle !important;
 }
 
-/* --- 4. EFEITOS EXTRAS --- */
+/* --- 5. EFEITOS EXTRAS --- */
 tbody tr:hover td {
     background-color: #f9f9f9 !important;
 }
 
 tbody tr[class*='subtotal']:hover td, tbody tr.subtotal:hover td,
-tbody tr[class*='total']:hover td, tbody tr.total:hover td { 
+tbody tr[class*='total']:hover td, tbody tr.total:hover td,
+tbody tr[class*='group-total']:hover td { 
     background-color: #bfbfbf !important; 
 }
