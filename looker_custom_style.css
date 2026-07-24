@@ -1,7 +1,6 @@
-/* Looker Report Table - CSS Completo v3 */
+/* Looker Report Table - CSS Completo v4 */
 
 /* --- 1. ESTILOS GERAIS DA TABELA --- */
-/* Garante que a tabela ocupe o espaço correto e as bordas se unam perfeitamente */
 table {
     border-collapse: collapse !important;
     width: 100% !important;
@@ -13,14 +12,20 @@ table {
 th, td {
     padding: 8px 10px !important;
     border: 1px solid #e0e0e0 !important; 
-    vertical-align: middle !important;
     font-size: 12px !important;
 }
 
-/* Alinhar números à direita (últimas colunas de métricas) */
+/* Alinhamento vertical corrigido para o TOPO nas dimensões */
+td:first-child, td:nth-child(2), td:nth-child(3),
+th:first-child, th:nth-child(2), th:nth-child(3) {
+    vertical-align: top !important;
+}
+
+/* Alinhar números à direita (últimas colunas de métricas) e centralizar verticalmente as métricas */
 td:nth-last-child(1), td:nth-last-child(2), td:nth-last-child(3),
 th:nth-last-child(1), th:nth-last-child(2), th:nth-last-child(3) {
     text-align: right !important;
+    vertical-align: middle !important;
 }
 
 /* Alinhar textos à esquerda nas primeiras colunas (Dimensões) */
@@ -30,33 +35,31 @@ th:first-child, th:nth-child(2), th:nth-child(3) {
 }
 
 /* --- 2. CABEÇALHO --- */
-/* Fundo preto, letra branca */
 thead th, .rt-header-row th, .report-table-header, tr[class*='header'] th {
     background-color: #000000 !important;
     color: #ffffff !important;
     font-weight: bold !important;
     border: 1px solid #333333 !important;
+    vertical-align: middle !important;
 }
 
 /* --- 3. SUBTOTAIS E TOTAIS --- */
-/* Fundo cinza padrão Looker, fonte em itálico e borda grossa APENAS embaixo */
 tr.subtotal td, .rt-subtotal-row td, .report-table-subtotal, tr[class*='subtotal'] td, tr[class*='Subtotal'] td,
 tr.total td, .rt-total-row td, .report-table-total, tr[class*='total'] td, tr[class*='Total'] td {
-    background-color: #cccccc !important; /* Cinza clássico do Looker */
+    background-color: #cccccc !important;
     color: #333333 !important;
     font-weight: bold !important;
-    font-style: italic !important; /* Itálico como na sua imagem de referência */
-    border-top: 1px solid #a6a6a6 !important; /* Borda fina e discreta em cima */
-    border-bottom: 3px solid #595959 !important; /* Borda mais grossa e escura embaixo para separar a categoria */
+    font-style: italic !important;
+    border-top: 1px solid #a6a6a6 !important;
+    border-bottom: 3px solid #595959 !important;
+    vertical-align: middle !important;
 }
 
 /* --- 4. EFEITOS EXTRAS --- */
-/* Destacar a linha sutilmente ao passar o mouse */
 tbody tr:hover td {
     background-color: #f9f9f9 !important;
 }
 
-/* Evitar que o hover tire o destaque dos totais */
 tbody tr[class*='subtotal']:hover td, tbody tr.subtotal:hover td,
 tbody tr[class*='total']:hover td, tbody tr.total:hover td { 
     background-color: #bfbfbf !important; 
